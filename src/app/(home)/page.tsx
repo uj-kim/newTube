@@ -1,3 +1,18 @@
-export default function Home() {
-  return <div>동영상 플랫폼 NewTube에 오신 것을 환영합니다!</div>;
+import { HydrateClient, trpc } from "@/trpc/server";
+import { PageClient } from "./client";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+
+export default async function Home() {
+  void trpc.hello.prefetch({ text: "Nina22" });
+
+  return (
+    <HydrateClient>
+      <Suspense fallback={<p>Loading..</p>}>
+        <ErrorBoundary fallback={<p>Error...</p>}>
+          <PageClient />
+        </ErrorBoundary>
+      </Suspense>
+    </HydrateClient>
+  );
 }
