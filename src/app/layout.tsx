@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { TRPCProvider } from "@/trpc/client";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
 
@@ -22,7 +23,10 @@ export default function RootLayout({
       {/* NOTE: 로그아웃 후에 항상 루트페이지로 이동 */}
       <html lang="en">
         <body className={inter.className}>
-          <TRPCProvider>{children}</TRPCProvider>
+          <TRPCProvider>
+            <Toaster />
+            {children}
+          </TRPCProvider>
         </body>
       </html>
     </ClerkProvider>
