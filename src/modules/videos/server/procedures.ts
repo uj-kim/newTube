@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { and, eq } from "drizzle-orm";
+import { UTApi } from "uploadthing/server";
 import { db } from "@/db";
 import { mux } from "@/lib/mux";
 import { TRPCError } from "@trpc/server";
@@ -18,6 +19,17 @@ export const videosRouter = createTRPCRouter({
         .where(and(eq(videos.id, input.id), eq(videos.userId, userId)));
 
       if (!existingVideo) throw new TRPCError({ code: "NOT_FOUND" });
+
+      if (existingVideo.thumbnailKey) {
+        const utapi = new UTApi();
+
+        await utapi.deleteFiles(existingVideo.thumbnailKey);
+        await db
+          .update(videos)
+          .set({ thumbnailKey: null, thumbnailUrl: null })
+          .where(and(eq(videos.id, input.id), eq(videos.userId, userId)));
+      }
+
       if (!existingVideo.muxPlaybackId)
         throw new TRPCError({ code: "BAD_REQUEST" });
       const thumbnailUrl = `https://image.mux.com/${existingVideo.muxPlaybackId}/thumbnail.jpg`;
