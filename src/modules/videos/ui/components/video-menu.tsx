@@ -11,6 +11,7 @@ import {
   ShareIcon,
   Trash2Icon,
 } from "lucide-react";
+import { toast } from "sonner";
 
 interface VideoMenuProps {
   videoId: string;
@@ -18,7 +19,17 @@ interface VideoMenuProps {
   onRemove?: () => void;
 }
 
+// TODO: 남은 부분 구현 필요
 export const VideoMenu = ({ videoId, variant, onRemove }: VideoMenuProps) => {
+  // TODO: Vercel 이외 경로에서 배포시 수정필요
+  const onShare = () => {
+    const fullUrl = `${
+      process.env.VERCEL_URL || "http://localhost:3000"
+    }/videos/${videoId}`;
+    navigator.clipboard.writeText(fullUrl);
+    toast.success("Link copied to the clipboard");
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,7 +38,7 @@ export const VideoMenu = ({ videoId, variant, onRemove }: VideoMenuProps) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" onClick={(e) => e.stopPropagation()}>
-        <DropdownMenuItem onClick={() => {}}>
+        <DropdownMenuItem onClick={onShare}>
           <ShareIcon className="mr-2 size-4" />
           Share
         </DropdownMenuItem>
