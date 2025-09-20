@@ -159,6 +159,7 @@ export const comments = pgTable("comments", {
       onDelete: "cascade",
     })
     .notNull(),
+  value: text("value").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
