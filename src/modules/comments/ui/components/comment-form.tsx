@@ -21,6 +21,8 @@ interface CommentFormProps {
   onSuccess?: () => void;
 }
 
+const FormSchema = commentInsertSchema.pick({ videoId: true, value: true });
+
 export const CommentForm = ({ videoId, onSuccess }: CommentFormProps) => {
   const { user } = useUser();
 
@@ -41,15 +43,15 @@ export const CommentForm = ({ videoId, onSuccess }: CommentFormProps) => {
     },
   });
 
-  const form = useForm<z.infer<typeof commentInsertSchema>>({
-    resolver: zodResolver(commentInsertSchema.omit({ userId: true })),
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
     defaultValues: {
       videoId,
       value: "",
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof commentInsertSchema>) => {
+  const handleSubmit = (values: z.infer<typeof FormSchema>) => {
     create.mutate(values);
   };
 
