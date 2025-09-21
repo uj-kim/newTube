@@ -36,7 +36,12 @@ export const InfiniteScroll = ({
     <div className="flex flex-col items-center gap-4 p-4">
       <div ref={targetRef} className="h-1" />
       {hasNextPage ? (
-        <Button>
+        <Button
+          onClick={
+            isManual && !isFetchingNextPage ? () => fetchNextPage() : undefined
+          }
+          disabled={!isManual || isFetchingNextPage}
+        >
           {isManual
             ? isFetchingNextPage
               ? "Loading..."
