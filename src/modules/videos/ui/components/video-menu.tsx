@@ -20,7 +20,11 @@ interface VideoMenuProps {
 }
 
 // TODO: 남은 부분 구현 필요
-export const VideoMenu = ({ videoId, variant, onRemove }: VideoMenuProps) => {
+export const VideoMenu = ({
+  videoId,
+  variant = "ghost",
+  onRemove,
+}: VideoMenuProps) => {
   // TODO: Vercel 이외 경로에서 배포시 수정필요
   const onShare = () => {
     const fullUrl = `${
