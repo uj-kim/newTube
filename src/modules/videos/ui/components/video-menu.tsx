@@ -26,9 +26,8 @@ export const VideoMenu = ({
   variant = "ghost",
   onRemove,
 }: VideoMenuProps) => {
-  // TODO: Vercel 이외 경로에서 배포시 수정필요
   const onShare = () => {
-    const fullUrl = `${APP_URL || "http://localhost:3000"}/videos/${videoId}`;
+    const fullUrl = `${APP_URL}/videos/${videoId}`;
     navigator.clipboard.writeText(fullUrl);
     toast.success("Link copied to the clipboard");
   };

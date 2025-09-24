@@ -22,9 +22,8 @@ function getQueryClient() {
 function getUrl() {
   const base = (() => {
     if (typeof window !== "undefined") return "";
-    // TODO: Vercel 외에 다른 배포환경일 경우 수정필요
-    if (APP_URL) return `https://${APP_URL}`;
-    return "http://localhost:3000";
+    // .env에서 배포 환경변수 수정(protocol 포함)
+    return APP_URL;
   })();
   return `${base}/api/trpc`;
 }

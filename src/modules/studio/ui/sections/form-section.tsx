@@ -211,8 +211,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
     update.mutate(data);
   };
 
-  // TODO: Vercel 이외 배포할 경우 변경해야함
-  const fullUrl = `${APP_URL || "http://localhost:3000"}/videos/${videoId}`;
+  const fullUrl = `${APP_URL}/videos/${videoId}`;
 
   const [isCopied, setIsCopied] = useState(false);
 
