@@ -1,5 +1,9 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useAuth, useClerk } from "@clerk/nextjs";
+import { FlameIcon, HomeIcon, PlaySquareIcon } from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -7,9 +11,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useAuth, useClerk } from "@clerk/nextjs";
-import { FlameIcon, HomeIcon, PlaySquareIcon } from "lucide-react";
-import Link from "next/link";
 
 const items = [
   {
@@ -31,8 +32,9 @@ const items = [
 ];
 
 export const MainSection = () => {
-  const { isSignedIn } = useAuth();
   const clerk = useClerk();
+  const { isSignedIn } = useAuth();
+  const pathname = usePathname();
 
   return (
     <SidebarGroup>
@@ -43,7 +45,7 @@ export const MainSection = () => {
               <SidebarMenuButton
                 tooltip={item.title}
                 asChild
-                isActive={false} // TODO: 현재 경로 확인
+                isActive={pathname === item.url}
                 onClick={(e) => {
                   if (!isSignedIn && item.auth) {
                     e.preventDefault();
