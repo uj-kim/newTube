@@ -1,3 +1,4 @@
+import { usersRouter } from "@/modules/users/server/procedures";
 import { studioRouter } from "@/modules/studio/server/procedures";
 import { videosRouter } from "@/modules/videos/server/procedures";
 import { searchRouter } from "@/modules/search/server/procedures";
@@ -14,6 +15,7 @@ import { playlistsRouter } from "@/modules/playlists/server/procedures";
 
 // import { TRPCError } from "@trpc/server";
 export const appRouter = createTRPCRouter({
+  users: usersRouter,
   studio: studioRouter,
   videos: videosRouter,
   search: searchRouter,

@@ -19,8 +19,9 @@ export const useSubscription = ({
   const subscribe = trpc.subscriptions.create.useMutation({
     onSuccess: () => {
       toast.success("Subsribed");
-      // TODO: subscriptions.getMany, users.getOne에 대한 재검증
+      // TODO: subscriptions.getMany에 대한 재검증
       utils.videos.getManySubscribed.invalidate();
+      utils.users.getOne.invalidate({ id: userId });
 
       if (fromVideoId) {
         utils.videos.getOne.invalidate({ id: fromVideoId });
@@ -37,8 +38,9 @@ export const useSubscription = ({
   const unsubscribe = trpc.subscriptions.remove.useMutation({
     onSuccess: () => {
       toast.success("Unsubsribed");
-      // TODO: subscriptions.getMany, users.getOne에 대한 재검증
+      // TODO: subscriptions.getMany에 대한 재검증
       utils.videos.getManySubscribed.invalidate();
+      utils.users.getOne.invalidate({ id: userId });
 
       if (fromVideoId) {
         utils.videos.getOne.invalidate({ id: fromVideoId });
