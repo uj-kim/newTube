@@ -1,5 +1,3 @@
-// TODO: seed categories 스크립트 생성
-
 import { db } from "@/db";
 import { categories } from "@/db/schema";
 
