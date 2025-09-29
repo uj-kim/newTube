@@ -12,7 +12,7 @@ export const StudioNavbar = () => {
         {/* NOTE: flex-shrink-0 : 해상도와 상관없이 절대 축소 되지 않음 */}
         <div className="flex items-center flex-shrink-0">
           <SidebarTrigger />
-          <Link href="/studio">
+          <Link prefetch href="/studio" className="hidden md:block">
             <div className="p-4 flex items-center gap-1">
               <Image src="/logo.svg" alt="Logo" height={32} width={32} />
               <p className="text-xl font-semibold tracking-tight">Studio</p>
