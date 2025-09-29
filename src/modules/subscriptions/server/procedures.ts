@@ -64,7 +64,7 @@ export const subscriptionsRouter = createTRPCRouter({
       const lastItem = items[items.length - 1];
       const nextCursor = hasMore
         ? {
-            id: lastItem.creatorId,
+            creatorId: lastItem.creatorId,
             updatedAt: lastItem.updatedAt,
           }
         : null;
